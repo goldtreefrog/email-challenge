@@ -4,21 +4,29 @@ import Sidebar from "./sidebar";
 import SingleEmail from "./single-email";
 import EmailList from "./email-list";
 import "./email.css";
+import NotFound from "./not-found";
 
-export default function Email() {
+const Email = props => {
+  // Find out if the URL contains one of the mailboxes contained in the state. If not, you want to fall through to the NotFound page (in router below).
+  let validRoute = props.state.hasOwnProperty(window.location.href.split("/")[3]);
+
+  console.log(props);
+
   return (
     <Router>
       <div className="email">
-        <Sidebar />
+        {validRoute && <Sidebar />}
         <main>
           <Switch>
             <Redirect from="/" to="/inbox" exact />
-            <Route path="/:folderId" component={EmailList} exact />
-            <Route path="/:folderId/:emailId" component={SingleEmail} exact />
-            {/* <SingleEmail folderId="inbox" emailId="1" /> */}
+            {validRoute && <Route path="/:folderId" component={EmailList} exact />}
+            {validRoute && <Route path="/:folderId/:emailId" component={SingleEmail} exact />}
+            <Route component={NotFound} />
           </Switch>
         </main>
       </div>
     </Router>
   );
-}
+};
+
+export default Email;

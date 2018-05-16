@@ -51,9 +51,11 @@ const initialState = {
 
 const store = createStore(state => state, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+const currState = store.getState();
+
 ReactDOM.render(
   <Provider store={store}>
-    <Email />
+    <Email state={currState} />
   </Provider>,
   document.getElementById("root")
 );

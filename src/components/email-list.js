@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./email-list.css";
 
 export function EmailList(props) {
-  console.log(props.emailList);
   const emails = props.emailList.map(email => (
     <li className="email-list-email" key={email.id}>
       <div className="email-list-email-from">{email.from}</div>
